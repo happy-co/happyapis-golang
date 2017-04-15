@@ -27,7 +27,7 @@ import happyco_type_v1 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v11 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v12 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v13 "github.com/happy-co/happyapis-golang/happyco/type/v1"
-import _ "github.com/happy-co/happyapis-golang/google.golang.org/genproto/googleapis/api/annotations"
+import _ "google.golang.org/genproto/googleapis/api/annotations"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal

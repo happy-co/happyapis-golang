@@ -26,7 +26,7 @@ It has these top-level messages:
 */
 package v1
 
-import proto "github.com/happy-co/happyapis-golang/github.com/golang/protobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 

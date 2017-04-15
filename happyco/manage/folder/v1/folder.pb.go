@@ -28,6 +28,11 @@ import happyco_type_v1 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v11 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -295,6 +300,177 @@ func init() {
 	proto.RegisterType((*UpdateFolderStatusesRequest)(nil), "happyco.manage.folder.v1.UpdateFolderStatusesRequest")
 	proto.RegisterType((*UpdateFolderStatusesResponse)(nil), "happyco.manage.folder.v1.UpdateFolderStatusesResponse")
 	proto.RegisterEnum("happyco.manage.folder.v1.Folder_Type", Folder_Type_name, Folder_Type_value)
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for FolderService service
+
+type FolderServiceClient interface {
+	ListFolders(ctx context.Context, in *ListFoldersRequest, opts ...grpc.CallOption) (*ListFoldersResponse, error)
+	CreateFolders(ctx context.Context, in *CreateFoldersRequest, opts ...grpc.CallOption) (*CreateFoldersResponse, error)
+	UpdateFolders(ctx context.Context, in *UpdateFoldersRequest, opts ...grpc.CallOption) (*UpdateFoldersResponse, error)
+	UpdateFolderStatuses(ctx context.Context, in *UpdateFolderStatusesRequest, opts ...grpc.CallOption) (*UpdateFolderStatusesResponse, error)
+}
+
+type folderServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewFolderServiceClient(cc *grpc.ClientConn) FolderServiceClient {
+	return &folderServiceClient{cc}
+}
+
+func (c *folderServiceClient) ListFolders(ctx context.Context, in *ListFoldersRequest, opts ...grpc.CallOption) (*ListFoldersResponse, error) {
+	out := new(ListFoldersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.folder.v1.FolderService/ListFolders", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *folderServiceClient) CreateFolders(ctx context.Context, in *CreateFoldersRequest, opts ...grpc.CallOption) (*CreateFoldersResponse, error) {
+	out := new(CreateFoldersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.folder.v1.FolderService/CreateFolders", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *folderServiceClient) UpdateFolders(ctx context.Context, in *UpdateFoldersRequest, opts ...grpc.CallOption) (*UpdateFoldersResponse, error) {
+	out := new(UpdateFoldersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.folder.v1.FolderService/UpdateFolders", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *folderServiceClient) UpdateFolderStatuses(ctx context.Context, in *UpdateFolderStatusesRequest, opts ...grpc.CallOption) (*UpdateFolderStatusesResponse, error) {
+	out := new(UpdateFolderStatusesResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.folder.v1.FolderService/UpdateFolderStatuses", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for FolderService service
+
+type FolderServiceServer interface {
+	ListFolders(context.Context, *ListFoldersRequest) (*ListFoldersResponse, error)
+	CreateFolders(context.Context, *CreateFoldersRequest) (*CreateFoldersResponse, error)
+	UpdateFolders(context.Context, *UpdateFoldersRequest) (*UpdateFoldersResponse, error)
+	UpdateFolderStatuses(context.Context, *UpdateFolderStatusesRequest) (*UpdateFolderStatusesResponse, error)
+}
+
+func RegisterFolderServiceServer(s *grpc.Server, srv FolderServiceServer) {
+	s.RegisterService(&_FolderService_serviceDesc, srv)
+}
+
+func _FolderService_ListFolders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListFoldersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FolderServiceServer).ListFolders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.folder.v1.FolderService/ListFolders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FolderServiceServer).ListFolders(ctx, req.(*ListFoldersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FolderService_CreateFolders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFoldersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FolderServiceServer).CreateFolders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.folder.v1.FolderService/CreateFolders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FolderServiceServer).CreateFolders(ctx, req.(*CreateFoldersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FolderService_UpdateFolders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFoldersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FolderServiceServer).UpdateFolders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.folder.v1.FolderService/UpdateFolders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FolderServiceServer).UpdateFolders(ctx, req.(*UpdateFoldersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FolderService_UpdateFolderStatuses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFolderStatusesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FolderServiceServer).UpdateFolderStatuses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.folder.v1.FolderService/UpdateFolderStatuses",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FolderServiceServer).UpdateFolderStatuses(ctx, req.(*UpdateFolderStatusesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _FolderService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.manage.folder.v1.FolderService",
+	HandlerType: (*FolderServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListFolders",
+			Handler:    _FolderService_ListFolders_Handler,
+		},
+		{
+			MethodName: "CreateFolders",
+			Handler:    _FolderService_CreateFolders_Handler,
+		},
+		{
+			MethodName: "UpdateFolders",
+			Handler:    _FolderService_UpdateFolders_Handler,
+		},
+		{
+			MethodName: "UpdateFolderStatuses",
+			Handler:    _FolderService_UpdateFolderStatuses_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/manage/folder/v1/folder.proto",
 }
 
 func init() { proto.RegisterFile("happyco/manage/folder/v1/folder.proto", fileDescriptor0) }

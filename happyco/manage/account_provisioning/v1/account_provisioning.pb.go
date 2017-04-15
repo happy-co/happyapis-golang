@@ -23,6 +23,11 @@ import happyco_manage_account_v1 "github.com/happy-co/happyapis-golang/happyco/m
 import happyco_type_v1 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -163,6 +168,111 @@ func init() {
 	proto.RegisterType((*CreateAccountsResponse_AccountIDWithAdminID)(nil), "happyco.manage.account_provisioning.v1.CreateAccountsResponse.AccountIDWithAdminID")
 	proto.RegisterType((*UpdateAccountStatusesRequest)(nil), "happyco.manage.account_provisioning.v1.UpdateAccountStatusesRequest")
 	proto.RegisterType((*UpdateAccountStatusesResponse)(nil), "happyco.manage.account_provisioning.v1.UpdateAccountStatusesResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for AccountProvisioningService service
+
+type AccountProvisioningServiceClient interface {
+	CreateAccounts(ctx context.Context, in *CreateAccountsRequest, opts ...grpc.CallOption) (*CreateAccountsResponse, error)
+	UpdateAccountStatuses(ctx context.Context, in *UpdateAccountStatusesRequest, opts ...grpc.CallOption) (*UpdateAccountStatusesResponse, error)
+}
+
+type accountProvisioningServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAccountProvisioningServiceClient(cc *grpc.ClientConn) AccountProvisioningServiceClient {
+	return &accountProvisioningServiceClient{cc}
+}
+
+func (c *accountProvisioningServiceClient) CreateAccounts(ctx context.Context, in *CreateAccountsRequest, opts ...grpc.CallOption) (*CreateAccountsResponse, error) {
+	out := new(CreateAccountsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account_provisioning.v1.AccountProvisioningService/CreateAccounts", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountProvisioningServiceClient) UpdateAccountStatuses(ctx context.Context, in *UpdateAccountStatusesRequest, opts ...grpc.CallOption) (*UpdateAccountStatusesResponse, error) {
+	out := new(UpdateAccountStatusesResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account_provisioning.v1.AccountProvisioningService/UpdateAccountStatuses", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for AccountProvisioningService service
+
+type AccountProvisioningServiceServer interface {
+	CreateAccounts(context.Context, *CreateAccountsRequest) (*CreateAccountsResponse, error)
+	UpdateAccountStatuses(context.Context, *UpdateAccountStatusesRequest) (*UpdateAccountStatusesResponse, error)
+}
+
+func RegisterAccountProvisioningServiceServer(s *grpc.Server, srv AccountProvisioningServiceServer) {
+	s.RegisterService(&_AccountProvisioningService_serviceDesc, srv)
+}
+
+func _AccountProvisioningService_CreateAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountProvisioningServiceServer).CreateAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account_provisioning.v1.AccountProvisioningService/CreateAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountProvisioningServiceServer).CreateAccounts(ctx, req.(*CreateAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountProvisioningService_UpdateAccountStatuses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountStatusesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountProvisioningServiceServer).UpdateAccountStatuses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account_provisioning.v1.AccountProvisioningService/UpdateAccountStatuses",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountProvisioningServiceServer).UpdateAccountStatuses(ctx, req.(*UpdateAccountStatusesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AccountProvisioningService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.manage.account_provisioning.v1.AccountProvisioningService",
+	HandlerType: (*AccountProvisioningServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateAccounts",
+			Handler:    _AccountProvisioningService_CreateAccounts_Handler,
+		},
+		{
+			MethodName: "UpdateAccountStatuses",
+			Handler:    _AccountProvisioningService_UpdateAccountStatuses_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/manage/account_provisioning/v1/account_provisioning.proto",
 }
 
 func init() {

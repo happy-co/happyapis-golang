@@ -45,6 +45,11 @@ import happyco_type_v13 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_inspect_type_v1 "github.com/happy-co/happyapis-golang/happyco/inspect/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -1139,6 +1144,443 @@ func init() {
 	proto.RegisterType((*InspectionStatusChangesEventAck)(nil), "happyco.inspect.inspection.v1.InspectionStatusChangesEventAck")
 	proto.RegisterType((*InspectionStatusChangesEventAckResponse)(nil), "happyco.inspect.inspection.v1.InspectionStatusChangesEventAckResponse")
 	proto.RegisterEnum("happyco.inspect.inspection.v1.InspectionStatusChangesEvent_InspectionStatusChange_Status", InspectionStatusChangesEvent_InspectionStatusChange_Status_name, InspectionStatusChangesEvent_InspectionStatusChange_Status_value)
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for InspectionService service
+
+type InspectionServiceClient interface {
+	// * List inspections gets a paginated and optionally filtered list of
+	// inspections from one or more folders.
+	ListInspections(ctx context.Context, in *ListInspectionsRequest, opts ...grpc.CallOption) (*ListInspectionsResponse, error)
+	// * Create inspections can create inspections with any status (normally
+	// scheduled).
+	CreateInspections(ctx context.Context, in *CreateInspectionsRequest, opts ...grpc.CallOption) (*CreateInspectionsResponse, error)
+	// * Update inspections can change the contents of inspections.
+	// Currently an inspection cannot have its asset_id or template_id
+	// updated.
+	UpdateInspections(ctx context.Context, in *UpdateInspectionsRequest, opts ...grpc.CallOption) (*UpdateInspectionsResponse, error)
+	// * Archive inspections should be used to delete inspections that are no
+	// longer wanted. No method for purging archived inspections is
+	// available via the API.
+	ArchiveInspections(ctx context.Context, in *SetInspectionsArchivedRequest, opts ...grpc.CallOption) (*SetInspectionsArchivedResponse, error)
+	// * Unarchive inspections should be used if previously archived
+	// inspections need to be restored.
+	UnarchiveInspections(ctx context.Context, in *SetInspectionsArchivedRequest, opts ...grpc.CallOption) (*SetInspectionsArchivedResponse, error)
+	// * Adds photos to inspections. The returned photo IDs must be inserted
+	// into the inspection for them to be displayed. This inspection does
+	// not occur in a transaction and you will receive a response for each
+	// photo.
+	AddInspectionPhotos(ctx context.Context, in *AddInspectionPhotosRequest, opts ...grpc.CallOption) (*AddInspectionPhotosResponse, error)
+	CreateDelegatedInspectionLinks(ctx context.Context, in *CreateDelegatedInspectionLinksRequest, opts ...grpc.CallOption) (*CreateDelegatedInspectionLinksResponse, error)
+}
+
+type inspectionServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewInspectionServiceClient(cc *grpc.ClientConn) InspectionServiceClient {
+	return &inspectionServiceClient{cc}
+}
+
+func (c *inspectionServiceClient) ListInspections(ctx context.Context, in *ListInspectionsRequest, opts ...grpc.CallOption) (*ListInspectionsResponse, error) {
+	out := new(ListInspectionsResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/ListInspections", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) CreateInspections(ctx context.Context, in *CreateInspectionsRequest, opts ...grpc.CallOption) (*CreateInspectionsResponse, error) {
+	out := new(CreateInspectionsResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/CreateInspections", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) UpdateInspections(ctx context.Context, in *UpdateInspectionsRequest, opts ...grpc.CallOption) (*UpdateInspectionsResponse, error) {
+	out := new(UpdateInspectionsResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/UpdateInspections", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) ArchiveInspections(ctx context.Context, in *SetInspectionsArchivedRequest, opts ...grpc.CallOption) (*SetInspectionsArchivedResponse, error) {
+	out := new(SetInspectionsArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/ArchiveInspections", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) UnarchiveInspections(ctx context.Context, in *SetInspectionsArchivedRequest, opts ...grpc.CallOption) (*SetInspectionsArchivedResponse, error) {
+	out := new(SetInspectionsArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/UnarchiveInspections", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) AddInspectionPhotos(ctx context.Context, in *AddInspectionPhotosRequest, opts ...grpc.CallOption) (*AddInspectionPhotosResponse, error) {
+	out := new(AddInspectionPhotosResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/AddInspectionPhotos", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inspectionServiceClient) CreateDelegatedInspectionLinks(ctx context.Context, in *CreateDelegatedInspectionLinksRequest, opts ...grpc.CallOption) (*CreateDelegatedInspectionLinksResponse, error) {
+	out := new(CreateDelegatedInspectionLinksResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionService/CreateDelegatedInspectionLinks", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for InspectionService service
+
+type InspectionServiceServer interface {
+	// * List inspections gets a paginated and optionally filtered list of
+	// inspections from one or more folders.
+	ListInspections(context.Context, *ListInspectionsRequest) (*ListInspectionsResponse, error)
+	// * Create inspections can create inspections with any status (normally
+	// scheduled).
+	CreateInspections(context.Context, *CreateInspectionsRequest) (*CreateInspectionsResponse, error)
+	// * Update inspections can change the contents of inspections.
+	// Currently an inspection cannot have its asset_id or template_id
+	// updated.
+	UpdateInspections(context.Context, *UpdateInspectionsRequest) (*UpdateInspectionsResponse, error)
+	// * Archive inspections should be used to delete inspections that are no
+	// longer wanted. No method for purging archived inspections is
+	// available via the API.
+	ArchiveInspections(context.Context, *SetInspectionsArchivedRequest) (*SetInspectionsArchivedResponse, error)
+	// * Unarchive inspections should be used if previously archived
+	// inspections need to be restored.
+	UnarchiveInspections(context.Context, *SetInspectionsArchivedRequest) (*SetInspectionsArchivedResponse, error)
+	// * Adds photos to inspections. The returned photo IDs must be inserted
+	// into the inspection for them to be displayed. This inspection does
+	// not occur in a transaction and you will receive a response for each
+	// photo.
+	AddInspectionPhotos(context.Context, *AddInspectionPhotosRequest) (*AddInspectionPhotosResponse, error)
+	CreateDelegatedInspectionLinks(context.Context, *CreateDelegatedInspectionLinksRequest) (*CreateDelegatedInspectionLinksResponse, error)
+}
+
+func RegisterInspectionServiceServer(s *grpc.Server, srv InspectionServiceServer) {
+	s.RegisterService(&_InspectionService_serviceDesc, srv)
+}
+
+func _InspectionService_ListInspections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListInspectionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).ListInspections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/ListInspections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).ListInspections(ctx, req.(*ListInspectionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_CreateInspections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateInspectionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).CreateInspections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/CreateInspections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).CreateInspections(ctx, req.(*CreateInspectionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_UpdateInspections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateInspectionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).UpdateInspections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/UpdateInspections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).UpdateInspections(ctx, req.(*UpdateInspectionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_ArchiveInspections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetInspectionsArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).ArchiveInspections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/ArchiveInspections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).ArchiveInspections(ctx, req.(*SetInspectionsArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_UnarchiveInspections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetInspectionsArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).UnarchiveInspections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/UnarchiveInspections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).UnarchiveInspections(ctx, req.(*SetInspectionsArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_AddInspectionPhotos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddInspectionPhotosRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).AddInspectionPhotos(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/AddInspectionPhotos",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).AddInspectionPhotos(ctx, req.(*AddInspectionPhotosRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InspectionService_CreateDelegatedInspectionLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDelegatedInspectionLinksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionServiceServer).CreateDelegatedInspectionLinks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionService/CreateDelegatedInspectionLinks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionServiceServer).CreateDelegatedInspectionLinks(ctx, req.(*CreateDelegatedInspectionLinksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _InspectionService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.inspect.inspection.v1.InspectionService",
+	HandlerType: (*InspectionServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListInspections",
+			Handler:    _InspectionService_ListInspections_Handler,
+		},
+		{
+			MethodName: "CreateInspections",
+			Handler:    _InspectionService_CreateInspections_Handler,
+		},
+		{
+			MethodName: "UpdateInspections",
+			Handler:    _InspectionService_UpdateInspections_Handler,
+		},
+		{
+			MethodName: "ArchiveInspections",
+			Handler:    _InspectionService_ArchiveInspections_Handler,
+		},
+		{
+			MethodName: "UnarchiveInspections",
+			Handler:    _InspectionService_UnarchiveInspections_Handler,
+		},
+		{
+			MethodName: "AddInspectionPhotos",
+			Handler:    _InspectionService_AddInspectionPhotos_Handler,
+		},
+		{
+			MethodName: "CreateDelegatedInspectionLinks",
+			Handler:    _InspectionService_CreateDelegatedInspectionLinks_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/inspect/inspection/v1/inspection.proto",
+}
+
+// Client API for InspectionEventService service
+
+type InspectionEventServiceClient interface {
+	// * On inspection status changes returns a stream that will be pushed
+	// events as they occur
+	OnInspectionStatusChanges(ctx context.Context, in *InspectionStatusChangesEventRequest, opts ...grpc.CallOption) (InspectionEventService_OnInspectionStatusChangesClient, error)
+	// * On inspection status changes ack should be called when events have
+	// been processed. Unless this is called events will be sent again
+	// after the timeout period.
+	OnInspectionStatusChangesAck(ctx context.Context, in *InspectionStatusChangesEventAck, opts ...grpc.CallOption) (*InspectionStatusChangesEventAckResponse, error)
+}
+
+type inspectionEventServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewInspectionEventServiceClient(cc *grpc.ClientConn) InspectionEventServiceClient {
+	return &inspectionEventServiceClient{cc}
+}
+
+func (c *inspectionEventServiceClient) OnInspectionStatusChanges(ctx context.Context, in *InspectionStatusChangesEventRequest, opts ...grpc.CallOption) (InspectionEventService_OnInspectionStatusChangesClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_InspectionEventService_serviceDesc.Streams[0], c.cc, "/happyco.inspect.inspection.v1.InspectionEventService/OnInspectionStatusChanges", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &inspectionEventServiceOnInspectionStatusChangesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type InspectionEventService_OnInspectionStatusChangesClient interface {
+	Recv() (*InspectionStatusChangesEvent, error)
+	grpc.ClientStream
+}
+
+type inspectionEventServiceOnInspectionStatusChangesClient struct {
+	grpc.ClientStream
+}
+
+func (x *inspectionEventServiceOnInspectionStatusChangesClient) Recv() (*InspectionStatusChangesEvent, error) {
+	m := new(InspectionStatusChangesEvent)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *inspectionEventServiceClient) OnInspectionStatusChangesAck(ctx context.Context, in *InspectionStatusChangesEventAck, opts ...grpc.CallOption) (*InspectionStatusChangesEventAckResponse, error) {
+	out := new(InspectionStatusChangesEventAckResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.inspection.v1.InspectionEventService/OnInspectionStatusChangesAck", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for InspectionEventService service
+
+type InspectionEventServiceServer interface {
+	// * On inspection status changes returns a stream that will be pushed
+	// events as they occur
+	OnInspectionStatusChanges(*InspectionStatusChangesEventRequest, InspectionEventService_OnInspectionStatusChangesServer) error
+	// * On inspection status changes ack should be called when events have
+	// been processed. Unless this is called events will be sent again
+	// after the timeout period.
+	OnInspectionStatusChangesAck(context.Context, *InspectionStatusChangesEventAck) (*InspectionStatusChangesEventAckResponse, error)
+}
+
+func RegisterInspectionEventServiceServer(s *grpc.Server, srv InspectionEventServiceServer) {
+	s.RegisterService(&_InspectionEventService_serviceDesc, srv)
+}
+
+func _InspectionEventService_OnInspectionStatusChanges_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(InspectionStatusChangesEventRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(InspectionEventServiceServer).OnInspectionStatusChanges(m, &inspectionEventServiceOnInspectionStatusChangesServer{stream})
+}
+
+type InspectionEventService_OnInspectionStatusChangesServer interface {
+	Send(*InspectionStatusChangesEvent) error
+	grpc.ServerStream
+}
+
+type inspectionEventServiceOnInspectionStatusChangesServer struct {
+	grpc.ServerStream
+}
+
+func (x *inspectionEventServiceOnInspectionStatusChangesServer) Send(m *InspectionStatusChangesEvent) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _InspectionEventService_OnInspectionStatusChangesAck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InspectionStatusChangesEventAck)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InspectionEventServiceServer).OnInspectionStatusChangesAck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.inspection.v1.InspectionEventService/OnInspectionStatusChangesAck",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InspectionEventServiceServer).OnInspectionStatusChangesAck(ctx, req.(*InspectionStatusChangesEventAck))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _InspectionEventService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.inspect.inspection.v1.InspectionEventService",
+	HandlerType: (*InspectionEventServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "OnInspectionStatusChangesAck",
+			Handler:    _InspectionEventService_OnInspectionStatusChangesAck_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "OnInspectionStatusChanges",
+			Handler:       _InspectionEventService_OnInspectionStatusChanges_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "happyco/inspect/inspection/v1/inspection.proto",
 }
 
 func init() { proto.RegisterFile("happyco/inspect/inspection/v1/inspection.proto", fileDescriptor0) }

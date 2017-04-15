@@ -33,6 +33,11 @@ import happyco_type_v1 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v11 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -496,6 +501,274 @@ func init() {
 	proto.RegisterType((*UpdateUsersResponse)(nil), "happyco.manage.account.v1.UpdateUsersResponse")
 	proto.RegisterType((*UpdateUserStatusesRequest)(nil), "happyco.manage.account.v1.UpdateUserStatusesRequest")
 	proto.RegisterType((*UpdateUserStatusesResponse)(nil), "happyco.manage.account.v1.UpdateUserStatusesResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for AccountService service
+
+type AccountServiceClient interface {
+	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
+	UpdateAccounts(ctx context.Context, in *UpdateAccountsRequest, opts ...grpc.CallOption) (*UpdateAccountsResponse, error)
+}
+
+type accountServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAccountServiceClient(cc *grpc.ClientConn) AccountServiceClient {
+	return &accountServiceClient{cc}
+}
+
+func (c *accountServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
+	out := new(ListAccountsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountService/ListAccounts", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) UpdateAccounts(ctx context.Context, in *UpdateAccountsRequest, opts ...grpc.CallOption) (*UpdateAccountsResponse, error) {
+	out := new(UpdateAccountsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountService/UpdateAccounts", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for AccountService service
+
+type AccountServiceServer interface {
+	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
+	UpdateAccounts(context.Context, *UpdateAccountsRequest) (*UpdateAccountsResponse, error)
+}
+
+func RegisterAccountServiceServer(s *grpc.Server, srv AccountServiceServer) {
+	s.RegisterService(&_AccountService_serviceDesc, srv)
+}
+
+func _AccountService_ListAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ListAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountService/ListAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ListAccounts(ctx, req.(*ListAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_UpdateAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).UpdateAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountService/UpdateAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).UpdateAccounts(ctx, req.(*UpdateAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AccountService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.manage.account.v1.AccountService",
+	HandlerType: (*AccountServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListAccounts",
+			Handler:    _AccountService_ListAccounts_Handler,
+		},
+		{
+			MethodName: "UpdateAccounts",
+			Handler:    _AccountService_UpdateAccounts_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/manage/account/v1/account.proto",
+}
+
+// Client API for AccountUsersService service
+
+type AccountUsersServiceClient interface {
+	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
+	AddUsers(ctx context.Context, in *AddUsersRequest, opts ...grpc.CallOption) (*AddUsersResponse, error)
+	UpdateUsers(ctx context.Context, in *UpdateUsersRequest, opts ...grpc.CallOption) (*UpdateUsersResponse, error)
+	UpdateUserStatuses(ctx context.Context, in *UpdateUserStatusesRequest, opts ...grpc.CallOption) (*UpdateUserStatusesResponse, error)
+}
+
+type accountUsersServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAccountUsersServiceClient(cc *grpc.ClientConn) AccountUsersServiceClient {
+	return &accountUsersServiceClient{cc}
+}
+
+func (c *accountUsersServiceClient) ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error) {
+	out := new(ListUsersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountUsersService/ListUsers", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountUsersServiceClient) AddUsers(ctx context.Context, in *AddUsersRequest, opts ...grpc.CallOption) (*AddUsersResponse, error) {
+	out := new(AddUsersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountUsersService/AddUsers", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountUsersServiceClient) UpdateUsers(ctx context.Context, in *UpdateUsersRequest, opts ...grpc.CallOption) (*UpdateUsersResponse, error) {
+	out := new(UpdateUsersResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountUsersService/UpdateUsers", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountUsersServiceClient) UpdateUserStatuses(ctx context.Context, in *UpdateUserStatusesRequest, opts ...grpc.CallOption) (*UpdateUserStatusesResponse, error) {
+	out := new(UpdateUserStatusesResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.account.v1.AccountUsersService/UpdateUserStatuses", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for AccountUsersService service
+
+type AccountUsersServiceServer interface {
+	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
+	AddUsers(context.Context, *AddUsersRequest) (*AddUsersResponse, error)
+	UpdateUsers(context.Context, *UpdateUsersRequest) (*UpdateUsersResponse, error)
+	UpdateUserStatuses(context.Context, *UpdateUserStatusesRequest) (*UpdateUserStatusesResponse, error)
+}
+
+func RegisterAccountUsersServiceServer(s *grpc.Server, srv AccountUsersServiceServer) {
+	s.RegisterService(&_AccountUsersService_serviceDesc, srv)
+}
+
+func _AccountUsersService_ListUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountUsersServiceServer).ListUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountUsersService/ListUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountUsersServiceServer).ListUsers(ctx, req.(*ListUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountUsersService_AddUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountUsersServiceServer).AddUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountUsersService/AddUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountUsersServiceServer).AddUsers(ctx, req.(*AddUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountUsersService_UpdateUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountUsersServiceServer).UpdateUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountUsersService/UpdateUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountUsersServiceServer).UpdateUsers(ctx, req.(*UpdateUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountUsersService_UpdateUserStatuses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserStatusesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountUsersServiceServer).UpdateUserStatuses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.account.v1.AccountUsersService/UpdateUserStatuses",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountUsersServiceServer).UpdateUserStatuses(ctx, req.(*UpdateUserStatusesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AccountUsersService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.manage.account.v1.AccountUsersService",
+	HandlerType: (*AccountUsersServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListUsers",
+			Handler:    _AccountUsersService_ListUsers_Handler,
+		},
+		{
+			MethodName: "AddUsers",
+			Handler:    _AccountUsersService_AddUsers_Handler,
+		},
+		{
+			MethodName: "UpdateUsers",
+			Handler:    _AccountUsersService_UpdateUsers_Handler,
+		},
+		{
+			MethodName: "UpdateUserStatuses",
+			Handler:    _AccountUsersService_UpdateUserStatuses_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/manage/account/v1/account.proto",
 }
 
 func init() { proto.RegisterFile("happyco/manage/account/v1/account.proto", fileDescriptor0) }

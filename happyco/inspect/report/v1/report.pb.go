@@ -29,6 +29,11 @@ import happyco_type_v12 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v13 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -504,6 +509,217 @@ func init() {
 	proto.RegisterType((*ReportsCreatedEvent_ReportCreated)(nil), "happyco.inspect.report.v1.ReportsCreatedEvent.ReportCreated")
 	proto.RegisterType((*ReportsCreatedEventAck)(nil), "happyco.inspect.report.v1.ReportsCreatedEventAck")
 	proto.RegisterType((*ReportsCreatedEventAckResponse)(nil), "happyco.inspect.report.v1.ReportsCreatedEventAckResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for ReportService service
+
+type ReportServiceClient interface {
+	// * List reports gets a paginated and optionally filtered list of
+	// reports from one or more folders.
+	ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error)
+}
+
+type reportServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewReportServiceClient(cc *grpc.ClientConn) ReportServiceClient {
+	return &reportServiceClient{cc}
+}
+
+func (c *reportServiceClient) ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error) {
+	out := new(ListReportsResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.report.v1.ReportService/ListReports", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for ReportService service
+
+type ReportServiceServer interface {
+	// * List reports gets a paginated and optionally filtered list of
+	// reports from one or more folders.
+	ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error)
+}
+
+func RegisterReportServiceServer(s *grpc.Server, srv ReportServiceServer) {
+	s.RegisterService(&_ReportService_serviceDesc, srv)
+}
+
+func _ReportService_ListReports_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListReportsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReportServiceServer).ListReports(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.report.v1.ReportService/ListReports",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReportServiceServer).ListReports(ctx, req.(*ListReportsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ReportService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.inspect.report.v1.ReportService",
+	HandlerType: (*ReportServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListReports",
+			Handler:    _ReportService_ListReports_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/inspect/report/v1/report.proto",
+}
+
+// Client API for ReportEventService service
+
+type ReportEventServiceClient interface {
+	// * On reports created returns a stream that will be pushed events as
+	// they occur
+	OnReportsCreated(ctx context.Context, in *ReportsCreatedEventRequest, opts ...grpc.CallOption) (ReportEventService_OnReportsCreatedClient, error)
+	// * On reports created ack should be called when events have
+	// been processed. Unless this is called events will be sent again
+	// after the timeout period.
+	OnReportsCreatedAck(ctx context.Context, in *ReportsCreatedEventAck, opts ...grpc.CallOption) (*ReportsCreatedEventAckResponse, error)
+}
+
+type reportEventServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewReportEventServiceClient(cc *grpc.ClientConn) ReportEventServiceClient {
+	return &reportEventServiceClient{cc}
+}
+
+func (c *reportEventServiceClient) OnReportsCreated(ctx context.Context, in *ReportsCreatedEventRequest, opts ...grpc.CallOption) (ReportEventService_OnReportsCreatedClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_ReportEventService_serviceDesc.Streams[0], c.cc, "/happyco.inspect.report.v1.ReportEventService/OnReportsCreated", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &reportEventServiceOnReportsCreatedClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ReportEventService_OnReportsCreatedClient interface {
+	Recv() (*ReportsCreatedEvent, error)
+	grpc.ClientStream
+}
+
+type reportEventServiceOnReportsCreatedClient struct {
+	grpc.ClientStream
+}
+
+func (x *reportEventServiceOnReportsCreatedClient) Recv() (*ReportsCreatedEvent, error) {
+	m := new(ReportsCreatedEvent)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *reportEventServiceClient) OnReportsCreatedAck(ctx context.Context, in *ReportsCreatedEventAck, opts ...grpc.CallOption) (*ReportsCreatedEventAckResponse, error) {
+	out := new(ReportsCreatedEventAckResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.report.v1.ReportEventService/OnReportsCreatedAck", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for ReportEventService service
+
+type ReportEventServiceServer interface {
+	// * On reports created returns a stream that will be pushed events as
+	// they occur
+	OnReportsCreated(*ReportsCreatedEventRequest, ReportEventService_OnReportsCreatedServer) error
+	// * On reports created ack should be called when events have
+	// been processed. Unless this is called events will be sent again
+	// after the timeout period.
+	OnReportsCreatedAck(context.Context, *ReportsCreatedEventAck) (*ReportsCreatedEventAckResponse, error)
+}
+
+func RegisterReportEventServiceServer(s *grpc.Server, srv ReportEventServiceServer) {
+	s.RegisterService(&_ReportEventService_serviceDesc, srv)
+}
+
+func _ReportEventService_OnReportsCreated_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReportsCreatedEventRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ReportEventServiceServer).OnReportsCreated(m, &reportEventServiceOnReportsCreatedServer{stream})
+}
+
+type ReportEventService_OnReportsCreatedServer interface {
+	Send(*ReportsCreatedEvent) error
+	grpc.ServerStream
+}
+
+type reportEventServiceOnReportsCreatedServer struct {
+	grpc.ServerStream
+}
+
+func (x *reportEventServiceOnReportsCreatedServer) Send(m *ReportsCreatedEvent) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ReportEventService_OnReportsCreatedAck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportsCreatedEventAck)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReportEventServiceServer).OnReportsCreatedAck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.report.v1.ReportEventService/OnReportsCreatedAck",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReportEventServiceServer).OnReportsCreatedAck(ctx, req.(*ReportsCreatedEventAck))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ReportEventService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.inspect.report.v1.ReportEventService",
+	HandlerType: (*ReportEventServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "OnReportsCreatedAck",
+			Handler:    _ReportEventService_OnReportsCreatedAck_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "OnReportsCreated",
+			Handler:       _ReportEventService_OnReportsCreated_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "happyco/inspect/report/v1/report.proto",
 }
 
 func init() { proto.RegisterFile("happyco/inspect/report/v1/report.proto", fileDescriptor0) }

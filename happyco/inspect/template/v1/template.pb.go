@@ -30,6 +30,11 @@ import happyco_type_v12 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_inspect_type_v1 "github.com/happy-co/happyapis-golang/happyco/inspect/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -355,6 +360,210 @@ func init() {
 	proto.RegisterType((*UpdateTemplatesResponse)(nil), "happyco.inspect.template.v1.UpdateTemplatesResponse")
 	proto.RegisterType((*SetTemplatesArchivedRequest)(nil), "happyco.inspect.template.v1.SetTemplatesArchivedRequest")
 	proto.RegisterType((*SetTemplatesArchivedResponse)(nil), "happyco.inspect.template.v1.SetTemplatesArchivedResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for TemplateService service
+
+type TemplateServiceClient interface {
+	ListTemplates(ctx context.Context, in *ListTemplatesRequest, opts ...grpc.CallOption) (*ListTemplatesResponse, error)
+	CreateTemplates(ctx context.Context, in *CreateTemplatesRequest, opts ...grpc.CallOption) (*CreateTemplatesResponse, error)
+	UpdateTemplates(ctx context.Context, in *UpdateTemplatesRequest, opts ...grpc.CallOption) (*UpdateTemplatesResponse, error)
+	ArchiveTemplates(ctx context.Context, in *SetTemplatesArchivedRequest, opts ...grpc.CallOption) (*SetTemplatesArchivedResponse, error)
+	UnarchiveTemplates(ctx context.Context, in *SetTemplatesArchivedRequest, opts ...grpc.CallOption) (*SetTemplatesArchivedResponse, error)
+}
+
+type templateServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewTemplateServiceClient(cc *grpc.ClientConn) TemplateServiceClient {
+	return &templateServiceClient{cc}
+}
+
+func (c *templateServiceClient) ListTemplates(ctx context.Context, in *ListTemplatesRequest, opts ...grpc.CallOption) (*ListTemplatesResponse, error) {
+	out := new(ListTemplatesResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.template.v1.TemplateService/ListTemplates", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *templateServiceClient) CreateTemplates(ctx context.Context, in *CreateTemplatesRequest, opts ...grpc.CallOption) (*CreateTemplatesResponse, error) {
+	out := new(CreateTemplatesResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.template.v1.TemplateService/CreateTemplates", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *templateServiceClient) UpdateTemplates(ctx context.Context, in *UpdateTemplatesRequest, opts ...grpc.CallOption) (*UpdateTemplatesResponse, error) {
+	out := new(UpdateTemplatesResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.template.v1.TemplateService/UpdateTemplates", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *templateServiceClient) ArchiveTemplates(ctx context.Context, in *SetTemplatesArchivedRequest, opts ...grpc.CallOption) (*SetTemplatesArchivedResponse, error) {
+	out := new(SetTemplatesArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.template.v1.TemplateService/ArchiveTemplates", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *templateServiceClient) UnarchiveTemplates(ctx context.Context, in *SetTemplatesArchivedRequest, opts ...grpc.CallOption) (*SetTemplatesArchivedResponse, error) {
+	out := new(SetTemplatesArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.inspect.template.v1.TemplateService/UnarchiveTemplates", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for TemplateService service
+
+type TemplateServiceServer interface {
+	ListTemplates(context.Context, *ListTemplatesRequest) (*ListTemplatesResponse, error)
+	CreateTemplates(context.Context, *CreateTemplatesRequest) (*CreateTemplatesResponse, error)
+	UpdateTemplates(context.Context, *UpdateTemplatesRequest) (*UpdateTemplatesResponse, error)
+	ArchiveTemplates(context.Context, *SetTemplatesArchivedRequest) (*SetTemplatesArchivedResponse, error)
+	UnarchiveTemplates(context.Context, *SetTemplatesArchivedRequest) (*SetTemplatesArchivedResponse, error)
+}
+
+func RegisterTemplateServiceServer(s *grpc.Server, srv TemplateServiceServer) {
+	s.RegisterService(&_TemplateService_serviceDesc, srv)
+}
+
+func _TemplateService_ListTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTemplatesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TemplateServiceServer).ListTemplates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.template.v1.TemplateService/ListTemplates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TemplateServiceServer).ListTemplates(ctx, req.(*ListTemplatesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TemplateService_CreateTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTemplatesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TemplateServiceServer).CreateTemplates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.template.v1.TemplateService/CreateTemplates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TemplateServiceServer).CreateTemplates(ctx, req.(*CreateTemplatesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TemplateService_UpdateTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTemplatesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TemplateServiceServer).UpdateTemplates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.template.v1.TemplateService/UpdateTemplates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TemplateServiceServer).UpdateTemplates(ctx, req.(*UpdateTemplatesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TemplateService_ArchiveTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTemplatesArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TemplateServiceServer).ArchiveTemplates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.template.v1.TemplateService/ArchiveTemplates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TemplateServiceServer).ArchiveTemplates(ctx, req.(*SetTemplatesArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TemplateService_UnarchiveTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTemplatesArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TemplateServiceServer).UnarchiveTemplates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.inspect.template.v1.TemplateService/UnarchiveTemplates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TemplateServiceServer).UnarchiveTemplates(ctx, req.(*SetTemplatesArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _TemplateService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.inspect.template.v1.TemplateService",
+	HandlerType: (*TemplateServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListTemplates",
+			Handler:    _TemplateService_ListTemplates_Handler,
+		},
+		{
+			MethodName: "CreateTemplates",
+			Handler:    _TemplateService_CreateTemplates_Handler,
+		},
+		{
+			MethodName: "UpdateTemplates",
+			Handler:    _TemplateService_UpdateTemplates_Handler,
+		},
+		{
+			MethodName: "ArchiveTemplates",
+			Handler:    _TemplateService_ArchiveTemplates_Handler,
+		},
+		{
+			MethodName: "UnarchiveTemplates",
+			Handler:    _TemplateService_UnarchiveTemplates_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/inspect/template/v1/template.proto",
 }
 
 func init() { proto.RegisterFile("happyco/inspect/template/v1/template.proto", fileDescriptor0) }

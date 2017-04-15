@@ -30,6 +30,11 @@ import happyco_type_v1 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import happyco_type_v11 "github.com/happy-co/happyapis-golang/happyco/type/v1"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -478,6 +483,210 @@ func init() {
 	proto.RegisterType((*UpdateAssetsResponse)(nil), "happyco.manage.asset.v1.UpdateAssetsResponse")
 	proto.RegisterType((*SetAssetsArchivedRequest)(nil), "happyco.manage.asset.v1.SetAssetsArchivedRequest")
 	proto.RegisterType((*SetAssetsArchivedResponse)(nil), "happyco.manage.asset.v1.SetAssetsArchivedResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for AssetService service
+
+type AssetServiceClient interface {
+	ListAssets(ctx context.Context, in *ListAssetsRequest, opts ...grpc.CallOption) (*ListAssetsResponse, error)
+	CreateAssets(ctx context.Context, in *CreateAssetsRequest, opts ...grpc.CallOption) (*CreateAssetsResponse, error)
+	UpdateAssets(ctx context.Context, in *UpdateAssetsRequest, opts ...grpc.CallOption) (*UpdateAssetsResponse, error)
+	ArchiveAssets(ctx context.Context, in *SetAssetsArchivedRequest, opts ...grpc.CallOption) (*SetAssetsArchivedResponse, error)
+	UnarchiveAssets(ctx context.Context, in *SetAssetsArchivedRequest, opts ...grpc.CallOption) (*SetAssetsArchivedResponse, error)
+}
+
+type assetServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAssetServiceClient(cc *grpc.ClientConn) AssetServiceClient {
+	return &assetServiceClient{cc}
+}
+
+func (c *assetServiceClient) ListAssets(ctx context.Context, in *ListAssetsRequest, opts ...grpc.CallOption) (*ListAssetsResponse, error) {
+	out := new(ListAssetsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.asset.v1.AssetService/ListAssets", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetServiceClient) CreateAssets(ctx context.Context, in *CreateAssetsRequest, opts ...grpc.CallOption) (*CreateAssetsResponse, error) {
+	out := new(CreateAssetsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.asset.v1.AssetService/CreateAssets", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetServiceClient) UpdateAssets(ctx context.Context, in *UpdateAssetsRequest, opts ...grpc.CallOption) (*UpdateAssetsResponse, error) {
+	out := new(UpdateAssetsResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.asset.v1.AssetService/UpdateAssets", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetServiceClient) ArchiveAssets(ctx context.Context, in *SetAssetsArchivedRequest, opts ...grpc.CallOption) (*SetAssetsArchivedResponse, error) {
+	out := new(SetAssetsArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.asset.v1.AssetService/ArchiveAssets", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *assetServiceClient) UnarchiveAssets(ctx context.Context, in *SetAssetsArchivedRequest, opts ...grpc.CallOption) (*SetAssetsArchivedResponse, error) {
+	out := new(SetAssetsArchivedResponse)
+	err := grpc.Invoke(ctx, "/happyco.manage.asset.v1.AssetService/UnarchiveAssets", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for AssetService service
+
+type AssetServiceServer interface {
+	ListAssets(context.Context, *ListAssetsRequest) (*ListAssetsResponse, error)
+	CreateAssets(context.Context, *CreateAssetsRequest) (*CreateAssetsResponse, error)
+	UpdateAssets(context.Context, *UpdateAssetsRequest) (*UpdateAssetsResponse, error)
+	ArchiveAssets(context.Context, *SetAssetsArchivedRequest) (*SetAssetsArchivedResponse, error)
+	UnarchiveAssets(context.Context, *SetAssetsArchivedRequest) (*SetAssetsArchivedResponse, error)
+}
+
+func RegisterAssetServiceServer(s *grpc.Server, srv AssetServiceServer) {
+	s.RegisterService(&_AssetService_serviceDesc, srv)
+}
+
+func _AssetService_ListAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetServiceServer).ListAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.asset.v1.AssetService/ListAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetServiceServer).ListAssets(ctx, req.(*ListAssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetService_CreateAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetServiceServer).CreateAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.asset.v1.AssetService/CreateAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetServiceServer).CreateAssets(ctx, req.(*CreateAssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetService_UpdateAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAssetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetServiceServer).UpdateAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.asset.v1.AssetService/UpdateAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetServiceServer).UpdateAssets(ctx, req.(*UpdateAssetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetService_ArchiveAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAssetsArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetServiceServer).ArchiveAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.asset.v1.AssetService/ArchiveAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetServiceServer).ArchiveAssets(ctx, req.(*SetAssetsArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AssetService_UnarchiveAssets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAssetsArchivedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AssetServiceServer).UnarchiveAssets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/happyco.manage.asset.v1.AssetService/UnarchiveAssets",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AssetServiceServer).UnarchiveAssets(ctx, req.(*SetAssetsArchivedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AssetService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "happyco.manage.asset.v1.AssetService",
+	HandlerType: (*AssetServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListAssets",
+			Handler:    _AssetService_ListAssets_Handler,
+		},
+		{
+			MethodName: "CreateAssets",
+			Handler:    _AssetService_CreateAssets_Handler,
+		},
+		{
+			MethodName: "UpdateAssets",
+			Handler:    _AssetService_UpdateAssets_Handler,
+		},
+		{
+			MethodName: "ArchiveAssets",
+			Handler:    _AssetService_ArchiveAssets_Handler,
+		},
+		{
+			MethodName: "UnarchiveAssets",
+			Handler:    _AssetService_UnarchiveAssets_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "happyco/manage/asset/v1/asset.proto",
 }
 
 func init() { proto.RegisterFile("happyco/manage/asset/v1/asset.proto", fileDescriptor0) }
